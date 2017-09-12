@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>svgline划线程序</title>
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no" />
+	<meta name="x5-fullscreen" content="true">
+	<meta name="full-screen" content="yes">
+	<link href="./reset.css">
+	<script src="./jquery-2.1.0.min.js"></script>
+	<script src="./svgline.js"></script>
+<script>
+	(function (doc, win) {    
+        var docEl = doc.documentElement;    
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+
+        docEl.style.maxWidth = 0.75 * docEl.clientHeight
+       	recalc = function () {    
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;    
+            docEl.style.fontSize = 20 * (clientWidth / 375) + 'px';
+            console.log(docEl.style.fontSize);
+        };    
+    	if (!doc.addEventListener) return; 
+
+    	win.addEventListener(resizeEvt, recalc, false);
+
+    	doc.addEventListener('DOMContentLoaded', recalc, false);
+
+    })(document, window);
+
+</script>
+	<style>
+.man{
+	position: relative;
+}
+.man img{
+	width:100%;
+	height: auto;
+}
+.svgs{
+	width:0rem;
+	height: 0.1rem;
+	position: absolute;
+	align-items: center;
+	left:50%;
+	top:0;
+	background:#000;
+
+}
+.svgs .checks{
+	position: absolute;
+	z-index:10;
+	display: flex;
+	align-items: center;
+	color: #999;
+	font-size: 0.7rem;
+	/*//min-width: 3rem;*/
+	white-space:nowrap;
+}
+.svg{
+	position: absolute;
+	z-index:-1;
+	stroke:#999999;
+	top:0.35rem;
+	margin-left:0.35rem;
+	left:100%;
+}
+.checks svg line{
+	stroke:#999999
+}
+.checks .j-input[data-type=radio]{
+	width: 0.6rem;
+	height: 0.6rem;
+	background:#f00;
+	margin-right: 0.25rem;
+	position: relative;
+	opacity: 1;
+	z-index:10;
+}
+.checks svg[class=iconfont]{
+	position: absolute;
+	top:-0.05rem;
+	left:-0.1rem;
+	display: block;
+	margin:0;
+}
+.checks svg[class$=active]{
+	position: absolute;
+	top:-0.05rem;
+	left:-0.1rem;
+	display: none;
+	margin:0;
+}
+.checks .j-input[data-type=radio]:checked ~ svg[class$=active]{
+	color: #8564cf;
+	display: block;
+}
+.checks .j-input[data-type=radio]:checked ~ svg[class=iconfont]{
+	display: none;
+}
+.checks .j-input[data-type=radio]:checked ~ svg[class=svg] line{
+	stroke:#8564cf;
+}
+.checks .j-input[data-type=radio]:checked ~ span{
+	color: #8564cf;
+}
+
+
+	</style>
+</head>
+<body>
+	<div class="man" >
+		<img src="./girl.jpg" alt="" id="man">
+		<div class="svgs">
+		</div>
+	</div>
+</body>
+<script>
+var line = [
+	{span: [-275,196,'肩宽'], Svgline: ["0,0,65,0","65,0,112,26"]},
+	{span: [-275,275,'胳膊粗'], Svgline: ["0,0,80,0"]},
+	{span: [-275,416,'胯宽'], Svgline: ["0,32,52,32","52,32,115,0"]},
+	{span: [-275,510,'大腿粗'], Svgline: ["0,50,40,50","40,50,100,0"]},
+	{span: [150,150,'脖子粗'], Svgline: ["0,47,70,0","70,0,112,0"], isR:137},
+	{span: [150,240,'胸小'], Svgline: ["0,30,74,0","74,0,112,0"], isR:137},
+	{span: [150,420,'大肚腩'], Svgline: ["0,0,56,39","56,39,115,39"], isR:140},
+	{span: [150,580,'小腿粗'], Svgline: ["0,36,27,0","27,0,92,0"], isR:117},
+	{span: [150,660,'小短腿'], Svgline: ["0,0,92,0"], isR:117},
+]
+var svg = new Svg('.svgs',line);
+</script>
+</html>
